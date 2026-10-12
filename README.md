@@ -21,3 +21,6 @@ Edit `CONFIG` at the top of `js/main.js`: timeOverride, timeLapse, rallySpeed, p
 
 ## Camera stops
 `SHOTS` in main.js — one [position, lookAt] pair per section, in order.
+
+## Language / direction
+The page is Farsi (`lang="fa" dir="rtl"`), set in Vazirmatn. The layout mirrors automatically via flexbox and CSS logical properties; `MIRROR_X` in `js/main.js` mirrors the camera so the court stays opposite the text. Don't add `letter-spacing` or `text-transform` to Persian text — it breaks letter joining. The body copy is placeholder text.

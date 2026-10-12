@@ -8,6 +8,9 @@ const CONFIG = {
   parallax: true,     // subtle mouse parallax on camera
 };
 
+// page is RTL: mirror the camera on X so the court stays opposite the text column
+const MIRROR_X = document.documentElement.dir === 'rtl' ? -1 : 1;
+
 const IS_MOBILE = matchMedia('(max-width: 768px), (pointer: coarse)').matches;
 
 const scroller = document.getElementById('scroller');
@@ -347,7 +350,8 @@ async function init() {
       ['sunI', 'hemiI', 'nk', 'day'].forEach((k) => (cur[k] = a[k] + (b[k] - a[k]) * t));
       return cur;
     };
-    const phase = (h) => (h < 5 ? 'Night' : h < 7.5 ? 'Dawn' : h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : h < 19 ? 'Golden hour' : h < 21 ? 'Dusk' : 'Night');
+    const phase = (h) => (h < 5 ? 'شب' : h < 7.5 ? 'سپیده‌دم' : h < 12 ? 'صبح' : h < 17 ? 'بعدازظهر' : h < 19 ? 'غروب طلایی' : h < 21 ? 'شامگاه' : 'شب');
+    const fa = new Intl.NumberFormat('fa-IR', { minimumIntegerDigits: 2, useGrouping: false });
     const startHour = (() => { const d = new Date(); return d.getHours() + d.getMinutes() / 60; })();
     const hourNow = () => {
       const ov = CONFIG.timeOverride;
@@ -364,7 +368,7 @@ async function init() {
       [[2, 27, 9], [3.5, 0, 0]],
       [[3.5, 1.8, 10.5], [-1.5, 1.2, -2]],
       [[-16, 12, -20], [-5, 0, -2]],
-    ].map(([p, t]) => [new V3(...p), new V3(...t)]);
+    ].map(([p, t]) => [new V3(p[0] * MIRROR_X, p[1], p[2]), new V3(t[0] * MIRROR_X, t[1], t[2])]);
     const camP = new V3(), camT = new V3(), wantP = new V3(), wantT = new V3();
     const mouse = { x: 0, y: 0, sx: 0, sy: 0 };
     const onMove = (e) => { mouse.x = e.clientX / innerWidth - 0.5; mouse.y = e.clientY / innerHeight - 0.5; };
@@ -445,7 +449,7 @@ async function init() {
       if (T - lastLabelT > 0.25) {
         lastLabelT = T;
         const hh = Math.floor(h), mm = Math.floor((h - hh) * 60);
-        const label = `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')} · ${phase(h)}`;
+        const label = `${fa.format(hh)}:${fa.format(mm)} · ${phase(h)}`;
         const day = E.day > 0.5;
         setUI(label, day);
       }
