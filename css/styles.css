@@ -8,7 +8,7 @@
   --card-bg: rgba(255, 251, 245, .88);
   --card-line: rgba(42, 35, 32, .08);
   --nav-bg: rgba(234, 222, 206, .75);
-  --font: 'Vazirmatn', Tahoma, system-ui, sans-serif;
+  --font: 'Outfit', 'Vazirmatn', Tahoma, system-ui, sans-serif;
   --mono: var(--font);
   --edge: clamp(16px, 3vw, 32px);
 }
@@ -47,7 +47,7 @@ a:hover { color: var(--accent-dark); }
 .section--book { flex-direction: column; align-items: flex-start; justify-content: center; gap: 24px; }
 
 .hero { display: flex; flex-direction: column; gap: 22px; max-width: 620px; }
-.hero h1 { margin: 0; font-weight: 700; font-size: clamp(60px, 10vw, 128px); line-height: 1.2; }
+.hero h1 { margin: 0; font-weight: 700; font-size: clamp(64px, 10vw, 140px); line-height: .95; letter-spacing: -.02em; }
 .hero-tag {
   align-self: flex-start; transform: rotate(3deg);
   margin-top: -14px; margin-inline-start: clamp(60px, 12vw, 200px);
